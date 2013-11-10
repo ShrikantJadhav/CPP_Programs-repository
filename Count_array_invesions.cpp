@@ -3,17 +3,43 @@
 using namespace std;
 
 int count = 0;
+void merge(int a[],int low, int mid, int high){
+        int n = high - low + 1;
+        int temp[n];
+        int rStart = mid+1;
+        int i = low;
+        int k = 0;
 
-int merge_items(int a[],int lb, int mid, int ub){
-    int start1 = lb;
-    int start2 = mid +1 ;
-
-    while(start1<=mid && start2<=ub){
-        if(a[start1] > a[start2]){
-            swap(a[start1],a[start2]);
-            count++;
+        while(low <= mid && rStart<= high){
+                if(a[low] <= a[rStart]){
+                        temp[k] = a[low];
+                        low++;
+                }
+                else
+                {
+                        temp[k] = a[rStart];
+                        rStart++;
+                        count++;
+                }
+                k++;
         }
-        start1++;
+
+        while(low<=mid){
+                temp[k++] = a[low++];
+        }
+
+        while(rStart <= high){
+                temp[k++] = a[rStart++];
+        }
+
+        for(int k = 0; k<n; k++){
+                a[i+k] = temp[k];
+        }
+
+        std::cout<<"\n";
+
+        for(int k = 0; k< n ; k++){
+        std::cout<<"\t"<<a[k];
     }
 }
 
@@ -22,7 +48,7 @@ int merge_sort(int a[],int lb , int ub){
         int mid = (lb + ub)/2;
         merge_sort(a,0,mid);
         merge_sort(a,mid+1,ub);
-        merge_items(a,lb,mid,ub);
+        merge(a,lb,mid,ub);
     }
 }
 
