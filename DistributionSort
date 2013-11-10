@@ -1,0 +1,27 @@
+#include<iostream>
+
+int main(){
+        int x[10]={3,2,4,1,4,2,1,3,6,5};
+        int sorted[10]={0,0,0,0,0,0,0,0,0,0};
+
+        int a = 1;
+        int b = 6,i=0,total = 0;
+
+        for(i = 0; i < 10;i++)
+        {
+                sorted[x[i] - a] += 1;
+        }
+
+        for(i=0;i<10 && total != 10;i++)
+        {
+                int k = sorted[i];
+                total = total + k;
+                while(k != 0)
+                {
+                        std::cout<<a;
+                        k--;
+                }
+                a++;
+        }
+        return 0;
+}
