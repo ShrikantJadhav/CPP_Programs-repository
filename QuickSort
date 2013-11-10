@@ -1,0 +1,48 @@
+#include<iostream>
+
+int partition(int a[], int lb, int ub){
+	int pivot = a[lb];
+	int up = ub;
+	int down = lb +1 ;
+
+	
+	while(down < up){
+		while(pivot > a[down] && down <= ub){
+			down++;
+		}
+
+		while(pivot < a[up] && up >= lb){
+			up--;
+		} 
+
+		if(up > down){
+			int temp = a[up];
+			a[up] = a[down];
+			a[down] = temp;
+		}
+	}
+
+	int temp = a[lb];
+	a[lb] = a[up];
+	a[up] = temp;
+	return up;
+}
+
+void quickSort(int a[],int lb, int ub){
+   int pivot;
+   if(lb < ub){
+	pivot = partition(a,lb,ub);
+	quickSort(a,lb,pivot - 1);
+	quickSort(a,pivot + 1,ub);
+   }
+}
+
+int main(){
+   int a[10] = {10,1,67,15,22,5,6,2,90,7};
+   quickSort(a,0,9);
+
+   for(int i = 0; i< 9 ;i++){
+	std::cout<<"\t"<<a[i];
+   }
+   return 0;
+}
