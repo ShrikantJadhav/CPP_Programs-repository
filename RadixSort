@@ -1,0 +1,47 @@
+#include<iostream>
+#include<cmath>
+
+int bucket[10][10] = {0};
+
+void insertIntoBucket(int bNumber,int value){
+	for(int i = 0; i<10;i++){
+		if(bucket[bNumber][i] == 0){
+			bucket[bNumber][i] = value;
+			return;
+		}
+	}
+}
+
+void reconstructArrayfromBucket(int a[], int n){
+	int k = 0;
+	for(int p=0 ; p < 10 ; p++){
+		for(int j =0 ; j<10; j++){
+			if(bucket[p][j] != 0){
+				a[k++]=bucket[p][j];
+				bucket[p][j] = 0;
+		}
+		}
+	}
+}
+
+void radixSort(int a[], int n){
+    for(int j = 0; j <= 2; j++){
+	for(int i = 0; i<= n; i++){
+		//Extract digits
+		int temp = a[i] / pow(10,j);
+		int digit = temp % 10; // mod 10 will give unit digit
+		insertIntoBucket(digit,a[i]);
+	}
+	reconstructArrayfromBucket(a,9);
+    } 
+}
+
+int main(){
+    int a[10]={901,456,789,101,330,45,444,345,357,234};
+    radixSort(a,9);
+    for(int i = 0; i < 10;i++)
+    {
+	std::cout<<"\t"<<a[i];
+    }
+    return 0;
+}
