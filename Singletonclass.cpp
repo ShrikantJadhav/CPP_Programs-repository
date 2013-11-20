@@ -14,9 +14,10 @@ private:
 
 public:
 	static cSingletonClass *getInstance();
-
+	static void releaseInstance();
 	void print();
 	void incrementVal();
+
 };
 
 cSingletonClass *cSingletonClass::m_instance = NULL;
@@ -26,6 +27,13 @@ cSingletonClass *cSingletonClass::getInstance(){
 		m_instance = new cSingletonClass();
 	}
 	return m_instance;
+}
+
+void cSingletonClass::releaseInstance(){
+	if(m_instance != NULL){
+		delete m_instance;
+		m_instance = NULL;
+	}
 }
 
 void cSingletonClass::print(){
@@ -40,4 +48,7 @@ int main(){
 	cSingletonClass::getInstance()->print();
 	cSingletonClass::getInstance()->incrementVal();
 	cSingletonClass::getInstance()->print();
+	cSingletonClass::releaseInstance();
+	int a;
+	std::cin >> a;
 }
