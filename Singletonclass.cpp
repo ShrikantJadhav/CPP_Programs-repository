@@ -40,6 +40,4 @@ int main(){
 	cSingletonClass::getInstance()->print();
 	cSingletonClass::getInstance()->incrementVal();
 	cSingletonClass::getInstance()->print();
-	int a;
-	std::cin >> a;
 }
