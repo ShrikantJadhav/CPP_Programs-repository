@@ -1,0 +1,38 @@
+#include<iostream>
+#include<algorithm>
+
+//Below solution just finds out the length of max subsequence
+
+int longestCommon(const char *s1,const char*s2){
+	if(*s1 == '\0' || *s2 == '\0'){
+		return 0;
+	}
+
+	if(*s1 == *s2){
+		return 1 + longestCommon(s1+1,s2+1);
+	}
+	else
+	{
+		return std::max(longestCommon(s1+1,s2),longestCommon(s1,s2+1));
+	}	
+}
+
+int lcm(const char *s1,const char*s2,int m,int n){
+   if (m == 0 || n == 0)
+     return 0;
+   if (s1[m-1] == s2[n-1])
+	   return 1 + lcm(s1, s2, m-1, n-1);
+   else
+     return std::max(lcm(s1, s2, m, n-1), lcm(s1, s2, m-1, n));
+}
+
+int main(){
+	char *str1 = "ABA";
+	char *str2 = "BAC";
+
+	int n = lcm(const_cast<char*> (str1) , const_cast<char*> (str2),strlen(str1)  , strlen(str2) );
+	std::cout<<"\nLength of maximum common subsequence is:"<<n;
+	n = longestCommon(const_cast<char*> (str1) , const_cast<char*> (str2));
+	std::cout<<"\nLength of maximum common subsequence is:"<<n;
+	std::cin>>n;
+}
