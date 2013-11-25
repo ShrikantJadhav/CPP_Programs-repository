@@ -1,3 +1,6 @@
+//Author: Shrikant Jadhav
+//Program returning length of longest common sub-sequence.
+
 #include<iostream>
 #include<algorithm>
 
@@ -33,6 +36,4 @@ int main(){
 	int n = lcm(const_cast<char*> (str1) , const_cast<char*> (str2),strlen(str1)  , strlen(str2) );
 	std::cout<<"\nLength of maximum common subsequence is:"<<n;
 	n = longestCommon(const_cast<char*> (str1) , const_cast<char*> (str2));
-	std::cout<<"\nLength of maximum common subsequence is:"<<n;
-	std::cin>>n;
 }
