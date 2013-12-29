@@ -1,4 +1,5 @@
 #include<iostream>
+#include<queue>
 
 using namespace std;
 
@@ -21,8 +22,8 @@ private:
     {
         if( *s != NULL)
         {
-            copyTree(t,&((*s)->left));
             insertIntoTree(t,(*s)->data);
+            copyTree(t,&((*s)->left));
             copyTree(t,&((*s)->right));
         }
     }
@@ -121,7 +122,7 @@ public:
             }
             else
             {
-                //get the extreme right node of the tree
+                //get the extreme right node of the left subtree
                 *t = (*t)->left;
                 while((*t)->right != NULL)
                 {
@@ -163,6 +164,29 @@ public:
         }
         searchAndDeleteItem(&p,d);
     }
+
+    void levelOrderPrint(){
+        std::queue<struct node *> nodeQueue;
+	    struct node *p;
+	    p = root;
+
+	    if( p == NULL) return;
+
+	    nodeQueue.push(p);
+	    std::cout<<"\nenqued: "<<(nodeQueue.front())->data;
+
+        std::cout<<"\n";
+	    while(!nodeQueue.empty()){
+	       std::cout<<"\t"<<(nodeQueue.front())->data;
+	       if((nodeQueue.front())->left)
+	           nodeQueue.push((nodeQueue.front())->left);
+
+	       if((nodeQueue.front())->right)
+	           nodeQueue.push((nodeQueue.front())->right);
+
+	       nodeQueue.pop();
+	    }
+    }
 };
 
 int main()
@@ -174,5 +198,7 @@ int main()
     bt1.print();
     bt1.deleteNode(98);
     bt1.print();
+    bt1.levelOrderPrint();
+    bt.levelOrderPrint();
     return 0;
 }
