@@ -1,0 +1,82 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *sortList(ListNode *head) {
+        if(head == NULL || head->next == NULL){
+		return head;
+    	}
+	        struct ListNode *rLeft = head;
+	        struct ListNode *middle = getMiddle(rLeft);
+	        struct ListNode *rRight = NULL; 
+	
+	        if(middle != NULL){
+	        	rRight = middle->next;
+		        middle->next = NULL;
+	        }
+	   return merge(sortList(rLeft),sortList(rRight));
+    }
+    
+    struct ListNode* merge(struct ListNode *sLeft, struct ListNode *sRight){
+	struct ListNode *cur;
+	struct ListNode *ret;
+	cur = new ListNode(0);
+	ret = cur;
+
+	while(sLeft != NULL && sRight != NULL){
+		
+		if(sLeft->val <= sRight->val){
+			cur->next = sLeft;
+			sLeft = sLeft->next;
+		}
+		else{
+			cur->next = sRight;
+			sRight = sRight->next;
+		}
+		cur = cur->next;
+	}
+
+	if(sLeft){
+		cur->next = sLeft;
+		sLeft= sLeft->next;
+	}
+
+	if(sRight){
+		cur->next = sRight;
+		sRight = sRight->next;
+	}	
+	return ret->next;
+}
+
+struct ListNode * getMiddle(struct ListNode *tmp){
+	struct ListNode *slow = tmp;
+	struct ListNode *fast = tmp;
+
+	while(fast != NULL){
+		if(fast)
+			fast = fast->next;
+		else
+			break;
+
+		if(fast){
+			fast = fast->next;
+			if(fast){
+				if(slow)
+                        	slow = slow->next;
+			}
+
+		}
+		else
+		{
+			break;
+		}
+	}
+	return slow;
+}
+};
